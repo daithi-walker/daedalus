@@ -1,0 +1,31 @@
+FROM node:20-slim
+
+# Install GitHub CLI (keyring is already binary format - no gpg/gnupg needed)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python3 python3-pip python3-venv git ca-certificates curl && \
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+        | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
+    chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+        > /etc/apt/sources.list.d/github-cli.list && \
+    apt-get update && apt-get install -y --no-install-recommends gh && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Claude Code CLI
+RUN npm install -g @anthropic-ai/claude-code
+
+# Install uv to a system path so both root and node users can run it
+RUN curl -LsSf https://astral.sh/uv/install.sh | UV_INSTALL_DIR=/usr/local/bin sh
+
+# Install pytest into a venv so it's on PATH as a fallback for non-uv projects
+RUN python3 -m venv /opt/pytest-env \
+    && /opt/pytest-env/bin/pip install --no-cache-dir pytest pytest-cov
+
+ENV PATH="/opt/pytest-env/bin:$PATH"
+
+RUN mkdir -p /workspace && chown node:node /workspace
+
+USER node
+WORKDIR /workspace
+
+ENTRYPOINT ["claude"]

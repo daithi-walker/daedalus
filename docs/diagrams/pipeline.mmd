@@ -1,0 +1,27 @@
+flowchart TD
+    User([Developer]) -->|"make run GOAL=..."| CLI[run_task.py]
+    CLI -->|"clone + submit OrchestratorWorkflow"| Temporal[(Temporal Server)]
+    Temporal --> Worker[Worker Process]
+
+    Worker --> Plan["Planner Agent<br/>read-only"]
+    Plan -->|JSON task graph| Worker
+
+    Worker --> Impl["Implementer Agent<br/>read + write"]
+    Impl -->|commits code| Worker
+
+    Worker --> QA["QA Agent<br/>read + write + bash"]
+    QA -->|"commits tests, runs pytest"| Worker
+
+    Worker --> Review{"Reviewer Agent<br/>read-only"}
+    Review -->|pass / advisory| Worker
+    Review -->|block| Impl
+
+    Worker --> Changelog["Changelog Agent<br/>read + write"]
+    Changelog -->|bumps version| Worker
+
+    Worker --> PRAuthor["PR Author Agent<br/>read + write"]
+    PRAuthor -->|writes PR_DESCRIPTION.md| Worker
+
+    Worker -->|push branch| Remote[("Git Remote<br/>GitHub / ADO")]
+    Remote -->|create PR| PR([Pull Request])
+    PR --> User

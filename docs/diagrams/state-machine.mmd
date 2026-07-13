@@ -1,0 +1,11 @@
+stateDiagram-v2
+    [*] --> planning
+    planning --> executing
+    executing --> executing: next task
+    executing --> awaiting_hitl: reviewer blocked N times
+    awaiting_hitl --> executing: resume signal
+    awaiting_hitl --> done: abandon signal
+    executing --> changelog
+    changelog --> authoring
+    authoring --> done
+    done --> [*]

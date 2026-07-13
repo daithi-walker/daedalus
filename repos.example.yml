@@ -1,0 +1,38 @@
+# Copy to repos.yaml and fill in your target repositories.
+# repos.yaml is gitignored - never commit real repo URLs or credentials here.
+#
+# Each entry is a short alias you use in ticket frontmatter (repo: my-api)
+# and on the CLI (make backlog ITEM=...).
+#
+# Run with: make backlog ITEM=<ticket-slug>
+#
+# Fields:
+#   url          - SSH or HTTPS clone URL (required)
+#   base_branch  - branch to clone and target PRs against (default: main)
+#   changelog    - set false to skip the changelog agent (default: true)
+#   git_exclude  - patterns written to .git/info/exclude in every agent worktree
+#                  use for build artifacts that aren't in the repo's .gitignore
+#                  Note: _context.md and PR_DESCRIPTION.md are always excluded.
+
+my-api:
+  url: git@github.com:your-org/your-api.git
+  base_branch: main
+  git_exclude:
+    - __pycache__/
+    - "**/__pycache__/"
+    - "*.pyc"
+
+legacy-service:
+  url: git@github.com:your-org/legacy-service.git
+  base_branch: develop
+  changelog: false           # skip changelog agent for repos without CHANGELOG.md
+  git_exclude:
+    - __pycache__/
+    - "**/__pycache__/"
+    - "*.pyc"
+    - node_modules/
+
+# HTTPS with a PAT (Azure DevOps / GitHub):
+# my-ado-service:
+#   url: https://user:PAT@dev.azure.com/org/project/_git/my-service
+#   base_branch: main

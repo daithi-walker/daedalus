@@ -1,0 +1,7 @@
+flowchart LR
+    Activity["run_claude_task<br/>activity"] -->|git worktree add| Worktree["/tmp/agent-xyz<br/>git worktree"]
+    Activity -->|_populate_workspace| Worktree
+    Worktree --> Docker["docker run daedalus:latest<br/>--allowedTools ...<br/>--yes -p prompt"]
+    Docker -->|stdout| Activity
+    Activity -->|"git add + reset scaffolding<br/>git commit"| Worktree
+    Activity -->|git worktree remove| Cleanup[cleanup]

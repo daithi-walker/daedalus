@@ -1,0 +1,14 @@
+{
+  "theme": "dark",
+  "themeVariables": {
+    "background": "#0f1117",
+    "primaryColor": "#1e2235",
+    "primaryTextColor": "#e8eaf0",
+    "primaryBorderColor": "#7eb8f7",
+    "lineColor": "#7eb8f7",
+    "secondaryColor": "#151a2a",
+    "tertiaryColor": "#1e2235",
+    "edgeLabelBackground": "#1e2235",
+    "clusterBkg": "#1e2235"
+  }
+}

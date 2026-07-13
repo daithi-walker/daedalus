@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.env
+repos.yaml
+*.egg-info/
+dist/
+.DS_Store
+.secrets/
+repos.yml
+PR_DESCRIPTION.md
+.claude/scheduled_tasks.lock
