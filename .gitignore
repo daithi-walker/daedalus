@@ -11,3 +11,6 @@ dist/
 repos.yml
 PR_DESCRIPTION.md
 .claude/scheduled_tasks.lock
+.coverage
+.pytest_cache/
+htmlcov/
