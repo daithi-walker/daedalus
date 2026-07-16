@@ -3,7 +3,6 @@
 import asyncio
 import os
 import subprocess
-import sys
 import tempfile
 import time
 from pathlib import Path
@@ -34,7 +33,7 @@ async def main(pr: str, repo: str = "", remote_url: str = "") -> None:
 
     repo_path = ""
     if provider == "ado" and remote_url:
-        print(f"ADO repo detected - cloning for git context...")
+        print("ADO repo detected - cloning for git context...")
         repo_path = str(_clone_for_review(remote_url))
         print(f"Cloned to: {repo_path}")
 

@@ -19,7 +19,6 @@ Repo lookup:  repos.yaml (gitignored) in this directory.
 import asyncio
 import os
 import sys
-import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -100,7 +99,7 @@ def _resolve_repo(
 
 
 # Import run_task main so we don't duplicate the workflow submission logic
-from run_task import main as _run_workflow
+from run_task import main as _run_workflow  # noqa: E402  (intentional deferred import)
 
 
 def _tickets_dir_or_none() -> Path | None:

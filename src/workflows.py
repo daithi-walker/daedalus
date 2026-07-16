@@ -276,7 +276,7 @@ class OrchestratorWorkflow:
         # Find the implementer task this review covers (first dependency)
         depends_on   = task.get("depends_on") or []
         impl_task_id = depends_on[0] if depends_on else None
-        impl_task    = next((t for t in _topo_sort([task]) if t["id"] == impl_task_id), None)
+        impl_task    = next((t for t in _topo_sort([task]) if t["id"] == impl_task_id), None)  # noqa: F841  (WIP: reserved for review-retry targeting)
 
         review_context = context
         for cycle in range(_MAX_REVIEW_CYCLES + 1):
@@ -582,7 +582,7 @@ def _parse_review(output: str) -> ReviewResult:
 
 def _topo_sort(tasks: list[dict]) -> list[dict]:
     """Kahn's algorithm - returns tasks in dependency order."""
-    by_id   = {t["id"]: t for t in tasks}
+    by_id   = {t["id"]: t for t in tasks}  # noqa: F841  (kept for readability of Kahn's algorithm)
     in_deg  = {t["id"]: 0 for t in tasks}
     for t in tasks:
         for dep in t.get("depends_on", []):
