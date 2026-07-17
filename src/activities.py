@@ -38,11 +38,11 @@ _SLACK_ICONS = {
 CLAUDE_IMAGE    = os.environ.get("CLAUDE_IMAGE",    "daedalus:latest")
 CLAUDE_QA_IMAGE = os.environ.get("CLAUDE_QA_IMAGE", "daedalus-qa:latest")
 
-_AGENT_IMAGES: dict[AgentType, str] = {
+_AGENT_IMAGES: dict[str, str] = {
     AgentType.qa: CLAUDE_QA_IMAGE,
 }
 
-_ALLOWED_TOOLS: dict[AgentType, str] = {
+_ALLOWED_TOOLS: dict[str, str] = {
     AgentType.planner:     "Read",
     AgentType.implementer: "Read,Write,Edit,MultiEdit,Bash(git rm *)",
     AgentType.reviewer:    "Read",
